@@ -461,3 +461,80 @@ createImage('img/img-1.jpg')
 btn.addEventListener('click', whereAmI);
 
 */
+// Running Promises in Parallel
+
+/*
+const get3Countries = async function (c1, c2, c3) {
+  try {
+    const [data1] = await getJSON(
+    `https://restcountries.com/v3.1/name/${c1}`,
+    'Country not found'
+  );
+  console.log(data1.capital);
+
+  const [data2] = await getJSON(
+    `https://restcountries.com/v3.1/name/${c2}`,
+    'Country not found'
+  );
+  console.log(data2.capital);
+
+  const [data3] = await getJSON(
+    `https://restcountries.com/v3.1/name/${c3}`,
+    'Country not found'
+  );
+  console.log(data3.capital);
+  console.log(data1.capital, data2.capital, data3.capital);
+  const data = await Promise.all([
+    getJSON(`https://restcountries.com/v3.1/name/${c1}`, 'Country not found'),
+      getJSON(`https://restcountries.com/v3.1/name/${c2}`, 'Country not found'),
+      getJSON(`https://restcountries.com/v3.1/name/${c3}`, 'Country not found'),
+    ]);
+    
+    data.map(dt => {
+      console.log(dt[0].capital[0]);
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+get3Countries('portugal', 'canada', 'tanzania');
+
+
+const timeout = function (second) {
+  return new Promise(function (_, reject) {
+    setTimeout(function () {
+      reject('Operation took too long');
+    }, second * 100);
+  });
+};
+
+Promise.race([
+  getJSON(`https://restcountries.com/v3.1/name/tanzania`),
+  timeout(5),
+])
+.then(([data]) => console.log(data.capital[0]))
+.catch(err => console.error(err));
+
+//Promise.allSettled()
+
+Promise.allSettled([
+  Promise.resolve('Success'),
+  Promise.reject('Error'),
+  Promise.resolve('Again Success'),
+])
+.then(res => console.log(res))
+  .catch(err => console.error(err));
+  
+  
+  // Promise.any()
+  Promise.any([
+    Promise.resolve('Success'),
+    Promise.reject('Error'),
+    Promise.resolve('Again Success'),
+  ])
+  .then(res => console.log(res))
+  .catch(err => console.error(err));
+  
+  // Promise.any() returns a promise that is fulfilled with the value of the first fulfilled input promise
+  
+  */
